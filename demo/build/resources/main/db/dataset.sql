@@ -5,12 +5,11 @@
 --
 --INSERT INTO user_tb (`id`,`email`,`password`,`userName`, `roles`) VALUES ('1', 'admin@green.com', '{bcrypt}$2a$10$IkVCSNVb.j.63fF19eISZe1mSvMUxs6KRg/ltThRhLexgJzk1CZMO', '홍길동', 'ROLE_ADMIN');
 --INSERT INTO user_tb (`id`,`email`,`password`,`userName`, `roles`) VALUES ('2', 'user@green.com', '{bcrypt}$2a$10$IkVCSNVb.j.63fF19eISZe1mSvMUxs6KRg/ltThRhLexgJzk1CZMO', '임꺽정', 'ROLE_USER');
-drop table kakao_table;
-create table kakao_table (
-	k_number bigint auto_increment,
-    k_name varchar(20) not null,
-    k_email varchar(50) not null,
-    constraint primary key(k_number)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    nickname VARCHAR(255) NOT NULL,
+    UNIQUE (email)
 );
 --
 --SET REFERENTIAL_INTEGRITY FALSE;

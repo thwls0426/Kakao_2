@@ -1,10 +1,10 @@
 <mapper namespace="KakaoMapper">
     <insert id="insertUser" parameterType="java.util.HashMap">
-        INSERT INTO Users_Table (k_name, k_email)
-        VALUES (#{nickname}, #{email})
+        INSERT INTO users (email, nickname)
+        VALUES (#{email}, #{nickname})
     </insert>
 
-    <select id="findUserByEmail" parameterType="string" resultType="java.util.HashMap">
-        SELECT * FROM Users_Table WHERE k_email = #{email}
+    <select id="findUserByEmail" parameterType="java.lang.String" resultType="java.util.HashMap">
+        SELECT * FROM users WHERE email = #{email}
     </select>
 </mapper>

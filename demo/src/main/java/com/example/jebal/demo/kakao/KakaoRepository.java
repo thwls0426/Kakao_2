@@ -30,8 +30,11 @@ public class KakaoRepository {
             foundUser = findUserByEmail((String) userInfo.get("email"));
         }
         KakaoDTO kakaoDTO = new KakaoDTO();
-        kakaoDTO.setK_name((String) foundUser.get("nickname"));
-        kakaoDTO.setK_email((String) foundUser.get("email"));
+        // DB에서 가져온 사용자 정보가 null이 아닌 경우에만 닉네임과 이메일을 설정
+        if (foundUser != null) {
+            kakaoDTO.setK_name((String) foundUser.get("nickname"));
+            kakaoDTO.setK_email((String) foundUser.get("email"));
+        }
         return kakaoDTO;
     }
 }
