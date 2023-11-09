@@ -36,5 +36,5 @@ file:
   path: ./images/
 
 
-mybatis:
-  mapper-locations: mapper/*.xml
+#mybatis:
+#  mapper-locations: mapper/*.xml

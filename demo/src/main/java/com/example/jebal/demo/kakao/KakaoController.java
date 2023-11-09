@@ -71,9 +71,6 @@ public class KakaoController {
         System.out.println("#########" + code);
         String access_Token = kakao.getAccessToken(code);
         KakaoDTO userInfo = kakao.getUserInfo(access_Token);
-        System.out.println("###access_Token#### : " + access_Token);
-        System.out.println("###nickname#### : " + userInfo.getK_name());
-        System.out.println("###email#### : " + userInfo.getK_email());
 
         session.invalidate();
         session.setAttribute("kakaoN", userInfo.getK_name());

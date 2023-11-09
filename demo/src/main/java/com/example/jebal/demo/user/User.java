@@ -23,6 +23,9 @@ public class User {
     private String email;
 
     @Column
+    private String nickname;
+
+    @Column
     private String picture;
 
 
@@ -40,13 +43,14 @@ public class User {
     private List<String> role = new ArrayList<>();
 
     @Builder
-    public User(int id, String email, String password, String username, String phoneNumber, List<String> role) {
+    public User(int id, String email, String password, String username, String phoneNumber, List<String> role, String nickname) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.role = role;
+        this.nickname = nickname;
     }
 
     public User update(String name, String picture){

@@ -4,11 +4,11 @@
 
 <mapper namespace="Users">
     <select id="findKakao" parameterType="java.util.HashMap">
-        select * from users_table where k_name=#{username} and k_email=#{email}
+        select * from Users_table where k_name=#{username} and k_email=#{email}
     </select>
 
     <insert id="kakaoInsert" parameterType="java.util.HashMap">
-        insert into users_table(k_name, k_email)
+        insert into Users_table(k_name, k_email)
         values(#{username}, #{email})
     </insert>
 

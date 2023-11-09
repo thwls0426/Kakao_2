@@ -3,6 +3,7 @@ package com.example.jebal.demo.kakao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.mybatis.spring.SqlSessionTemplate;
+import com.example.jebal.demo.kakao.KakaoDTO;
 
 import java.util.HashMap;
 
@@ -18,7 +19,7 @@ public class KakaoRepository {
 
     // 정보 확인
     public KakaoDTO findKakao(HashMap<String, Object> userInfo) {
-        System.out.println("RN:"+userInfo.get("username"));
+        System.out.println("RN:"+userInfo.get("nickname"));
         System.out.println("RE:"+userInfo.get("email"));
         return sql.selectOne("Users.findKakao", userInfo);
     }

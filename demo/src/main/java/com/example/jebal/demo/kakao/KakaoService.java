@@ -76,7 +76,6 @@ public class KakaoService {
     @Autowired
     private KakaoRepository kr;
 
-    @Transactional
     public KakaoDTO getUserInfo (String access_Token) {
 
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -100,10 +99,11 @@ public class KakaoService {
             JsonElement element = parser.parse(result);
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-            String username = properties.getAsJsonObject().get("username").getAsString();
+            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
-            userInfo.put("username", username);
+            userInfo.put("nickname", nickname);
             userInfo.put("email", email);
+
 
         } catch (IOException e) {
 
