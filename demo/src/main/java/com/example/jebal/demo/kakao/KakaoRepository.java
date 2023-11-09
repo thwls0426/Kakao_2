@@ -18,7 +18,7 @@ public class KakaoRepository {
 
     // 정보 확인
     public KakaoDTO findKakao(HashMap<String, Object> userInfo) {
-        System.out.println("RN:"+userInfo.get("nickname"));
+        System.out.println("RN:"+userInfo.get("username"));
         System.out.println("RE:"+userInfo.get("email"));
         return sql.selectOne("Users.findKakao", userInfo);
     }
