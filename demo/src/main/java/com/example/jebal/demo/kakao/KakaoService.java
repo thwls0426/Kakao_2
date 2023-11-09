@@ -5,7 +5,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -77,7 +76,6 @@ public class KakaoService {
     private KakaoRepository kr;
 
     public KakaoDTO getUserInfo (String access_Token) {
-
         //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
         HashMap<String, Object> userInfo = new HashMap<>();
         String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -104,26 +102,26 @@ public class KakaoService {
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
 
-
         } catch (IOException e) {
-
             e.printStackTrace();
         }
 
-        KakaoDTO result = kr.findKakao(userInfo);
+        HashMap<String, Object> result = kr.findUserByEmail((String) userInfo.get("email"));
         // 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
         System.out.println("S:" + result);
         if(result==null) {
             // result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
-            kr.kakaoInsert(userInfo);
+            kr.insertUser(userInfo);
             // 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-            return kr.findKakao(userInfo);
-            // 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-            //  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-        } else {
-            return result;
-            // 정보가 이미 있기 때문에 result를 리턴함.
+            result = kr.findUserByEmail((String) userInfo.get("email"));
         }
+
+        // HashMap을 KakaoDTO로 변환
+        KakaoDTO kakaoDTO = new KakaoDTO();
+        kakaoDTO.setK_name((String) result.get("nickname"));
+        kakaoDTO.setK_email((String) result.get("email"));
+
+        return kakaoDTO;
     }
 
     public void Logout(String access_Token) {

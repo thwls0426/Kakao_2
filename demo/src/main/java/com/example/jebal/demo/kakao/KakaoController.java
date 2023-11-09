@@ -1,10 +1,9 @@
 package com.example.jebal.demo.kakao;
 
-
-import lombok.AllArgsConstructor;
+import com.example.jebal.demo.core.security.JwtTokenProvider;
+import com.example.jebal.demo.user.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -71,11 +70,14 @@ public class KakaoController {
         System.out.println("#########" + code);
         String access_Token = kakao.getAccessToken(code);
         KakaoDTO userInfo = kakao.getUserInfo(access_Token);
+        System.out.println("###access_Token#### : " + access_Token);
+        System.out.println("###nickname#### : " + userInfo.getK_name());
+        System.out.println("###email#### : " + userInfo.getK_email());
 
         session.invalidate();
         session.setAttribute("kakaoN", userInfo.getK_name());
         session.setAttribute("kakaoE", userInfo.getK_email());
 
-        return "redirect:/login.html";
+        return JwtTokenProvider.create(User.builder().build());
     }
 }
