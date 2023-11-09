@@ -4,7 +4,48 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="827359c6-aa2e-4c94-becc-ceb0c49d4242" name="변경" comment="" />
+    <list default="true" id="827359c6-aa2e-4c94-becc-ceb0c49d4242" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.3/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.3/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/core/security/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/core/security/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/kakao/KakaoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/jebal/demo/user/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/db/dataset.sql" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/db/dataset.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/mybatis-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/KakaoController.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/KakaoController.class.uniqueId0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/KakaoService.class.uniqueId1" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/KakaoService.class.uniqueId1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/KakaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/kakao/kakao-mapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/jebal/demo/user/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/dataset.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/dataset.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/logout_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/logout_success.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/success.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/unlink_success.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/unlink_success.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,20 +94,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "dodinkatalk",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/thwls/OneDrive/바탕 화면/login_test_1",
-    "project.structure.last.edited": "프로젝트",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/thwls/OneDrive/바탕 화면/KakaoLoginTestHD&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;프로젝트&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thwls\OneDrive\바탕 화면\Kakao_2\demo\src\main\resources\templates" />
+      <recent name="C:\Users\thwls\OneDrive\바탕 화면\Kakao_2\demo\src\main\resources" />
       <recent name="C:\Users\thwls\OneDrive\바탕 화면\Kakao\demo\src\main\java\com\example\jebal\demo\kakao" />
       <recent name="C:\Users\thwls\OneDrive\바탕 화면\Kakao\demo\src\main\resources\db" />
     </key>

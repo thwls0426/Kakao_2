@@ -6,6 +6,7 @@ import com.example.jebal.demo.core.error.Exception.Exception500;
 import com.example.jebal.demo.core.security.CustomUserDetails;
 import com.example.jebal.demo.core.security.JwtTokenProvider;
 import com.example.jebal.demo.core.utils.SignUpMessageSender;
+import com.example.jebal.demo.kakao.KakaoDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -74,6 +75,15 @@ public class UserService {
 
 
     }
+
+//    public void createUserFromKakao(KakaoDTO kakaoUser) {
+//        User user = new User();
+//        user.setEmail(kakaoUser.getEmail());
+//        user.setNickname(kakaoUser.getNickname());
+//        // ... 다른 필드들도 적절히 설정 ...
+//
+//        userRepository.save(user);
+//    }
 
     public void findAll() {
         List<User> all = userRepository.findAll();

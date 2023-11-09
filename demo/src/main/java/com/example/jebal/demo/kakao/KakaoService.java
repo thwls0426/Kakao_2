@@ -3,7 +3,8 @@ package com.example.jebal.demo.kakao;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonElement;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -14,8 +15,16 @@ import java.util.HashMap;
 
 @Service
 public class KakaoService {
+    private static final Logger logger = LoggerFactory.getLogger(KakaoService.class);
+    private static final String CLIENT_ID = "e5dd6150538185c4fa9550b60a6f9977";
+    private static final String REDIRECT_URI = "http://localhost:8080/katalk/callback";
 
-    public String getAccessToken (String authorize_code) {
+    private final KakaoRepository kakaoRepository;
+
+    public KakaoService(KakaoRepository kakaoRepository) {
+        this.kakaoRepository = kakaoRepository;
+    }
+    public String getAccessToken(String authorize_code) {
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -72,28 +81,10 @@ public class KakaoService {
         return access_Token;
     }
 
-    @Autowired
-    private KakaoRepository kr;
-
-    public KakaoDTO getUserInfo (String access_Token) {
-
-        //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+    public KakaoDTO getUserInfo(String access_Token) {
         HashMap<String, Object> userInfo = new HashMap<>();
-        String reqURL = "https://kapi.kakao.com/v2/user/me";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line = "";
-            String result = "";
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body : " + result);
+        String result = callKakaoAPI("https://kapi.kakao.com/v2/user/me", access_Token);
+        if (result != null) {
             JsonParser parser = new JsonParser();
             JsonElement element = parser.parse(result);
             JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
@@ -102,81 +93,45 @@ public class KakaoService {
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
-
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
         }
 
-        KakaoDTO result = kr.findKakao(userInfo);
-        // 위 코드는 먼저 정보가 저장되있는지 확인하는 코드.
-        System.out.println("S:" + result);
-        if(result==null) {
-            // result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
-            kr.insertUser(userInfo);
-            // 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-            return kr.findKakao(userInfo);
-            // 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
-            //  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
-        } else {
-            return result;
-            // 정보가 이미 있기 때문에 result를 리턴함.
+        KakaoDTO kakaoDTO = kakaoRepository.findKakao(userInfo);
+        if(kakaoDTO == null) {
+            kakaoRepository.insertUser(userInfo);
+            kakaoDTO = kakaoRepository.findKakao(userInfo);
         }
+        return kakaoDTO;
     }
 
     public void Logout(String access_Token) {
-        String reqURL = "https://kapi.kakao.com/v1/user/logout";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String result = "";
-            String line = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println(result);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        callKakaoAPI("https://kapi.kakao.com/v1/user/logout", access_Token);
     }
 
     public void unlink(String access_Token) {
-        String reqURL = "https://kauth.kakao.com/oauth/logout";
+        callKakaoAPI("https://kauth.kakao.com/oauth/logout", access_Token);
+    }
+
+    private String callKakaoAPI(String apiURL, String access_Token) {
+        String result = null;
         try {
-            URL url = new URL(reqURL);
+            URL url = new URL(apiURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
-
+            logger.info("responseCode : " + responseCode);
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String result = "";
-            String line = "";
-
+            String line;
+            result = "";
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println(result);
+            logger.info("response body : " + result);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error during calling Kakao API", e);
         }
+        return result;
     }
-
-
 }
 
 
