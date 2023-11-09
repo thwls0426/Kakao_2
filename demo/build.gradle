@@ -22,7 +22,6 @@ dependencies {
 
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client', version: '2.4.3'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

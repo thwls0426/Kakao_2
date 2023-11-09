@@ -40,6 +40,7 @@ public class User {
 
     @Column(length = 30, nullable = false)
     @Convert(converter = StringArrayConverter.class)
+    @Builder.Default
     private List<String> role = new ArrayList<>();
 
     @Builder

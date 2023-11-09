@@ -2,7 +2,6 @@ package com.example.jebal.demo.kakao;
 
 import com.example.jebal.demo.user.User;
 import com.example.jebal.demo.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -25,25 +24,29 @@ public class KakaoRepository {
     }
 
     public User findUserByEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return user.orElse(null);
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("해당 이메일의 사용자를 찾을 수 없습니다. 이메일: " + email));
     }
 
     // 정보 확인
     public KakaoDTO findKakao(HashMap<String, Object> userInfo) {
-        System.out.println("RN:"+userInfo.get("nickname"));
-        System.out.println("RE:"+userInfo.get("email"));
-        User foundUser = findUserByEmail((String) userInfo.get("email"));
-        if(foundUser == null) {
+        String email = (String) userInfo.get("email");
+        String nickname = (String) userInfo.get("nickname");
+
+        if (email == null || nickname == null) {
+            throw new IllegalArgumentException("이메일과 닉네임은 null일 수 없습니다.");
+        }
+
+        User foundUser = findUserByEmail(email);
+        if (foundUser == null) {
             insertUser(userInfo);
-            foundUser = findUserByEmail((String) userInfo.get("email"));
+            foundUser = findUserByEmail(email);
         }
+
         KakaoDTO kakaoDTO = new KakaoDTO();
-        // DB에서 가져온 사용자 정보가 null이 아닌 경우에만 닉네임과 이메일을 설정
-        if (foundUser != null) {
-            kakaoDTO.setK_name(foundUser.getNickname());
-            kakaoDTO.setK_email(foundUser.getEmail());
-        }
+        kakaoDTO.setK_name(foundUser.getNickname());
+        kakaoDTO.setK_email(foundUser.getEmail());
+
         return kakaoDTO;
     }
 }
