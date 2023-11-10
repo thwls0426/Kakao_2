@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 
 
 @Service
+@Transactional(readOnly = true)
 public class KakaoService {
     private static final Logger logger = LoggerFactory.getLogger(KakaoService.class);
     private static final String CLIENT_ID = "d724c4c3a21fde9dd46123f7eb45872a";
@@ -91,6 +93,10 @@ public class KakaoService {
             JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
             String nickname = properties.getAsJsonObject().get("nickname").getAsString();
             String email = kakao_account.getAsJsonObject().get("email").getAsString();
+
+            if (email == null || nickname == null) {
+                throw new IllegalArgumentException("이메일과 닉네임은 null일 수 없습니다.");
+            }
             userInfo.put("nickname", nickname);
             userInfo.put("email", email);
         }

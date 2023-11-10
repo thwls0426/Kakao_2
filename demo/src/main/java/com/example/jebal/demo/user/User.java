@@ -32,13 +32,13 @@ public class User {
     @Column(length = 256, nullable = false)
     private String password;
 
-    @Column(length = 45, nullable = false)
+    @Column(length = 100, nullable = false)
     private String username;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 100, nullable = false)
     private String phoneNumber;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
     @Convert(converter = StringArrayConverter.class)
     @Builder.Default
     private List<String> role = new ArrayList<>();

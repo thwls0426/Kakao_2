@@ -20,6 +20,9 @@ public class KakaoRepository {
         User user = new User();
         user.setEmail((String) userInfo.get("email"));
         user.setNickname((String) userInfo.get("nickname"));
+        user.setPassword((String) userInfo.get("password"));
+        user.setUsername((String) userInfo.get("username"));
+        user.setPhoneNumber((String) userInfo.get("phoneNumber"));
         userRepository.save(user);
     }
 
@@ -30,6 +33,7 @@ public class KakaoRepository {
 
     // 정보 확인
     public KakaoDTO findKakao(HashMap<String, Object> userInfo) {
+
         String email = (String) userInfo.get("email");
         String nickname = (String) userInfo.get("nickname");
 
@@ -44,7 +48,7 @@ public class KakaoRepository {
         }
 
         KakaoDTO kakaoDTO = new KakaoDTO();
-        kakaoDTO.setK_name(foundUser.getNickname());
+        kakaoDTO.setK_nickname(foundUser.getNickname());
         kakaoDTO.setK_email(foundUser.getEmail());
 
         return kakaoDTO;

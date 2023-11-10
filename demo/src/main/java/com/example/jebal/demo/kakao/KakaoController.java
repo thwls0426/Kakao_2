@@ -37,12 +37,14 @@ public class KakaoController {
         // 카카오 로그인 정보를 User 객체로 변환하고 저장합니다.
         User user = User.builder()
                 .email(userInfo.getK_email())
-                .nickname(userInfo.getK_name())
+                .nickname(userInfo.getK_nickname())
+                .username(userInfo.getK_username())
+                .picture(userInfo.getProfilePictureUrl())
                 .role(Collections.singletonList("ROLE_USER"))
                 .build();
         userRepository.save(user);
 
-        return "redirect:/success.html";
+        return "redirect:/login.html";
     }
 
 
@@ -56,11 +58,19 @@ public class KakaoController {
         String access_Token = kakaoService.getAccessToken(code);
         KakaoDTO userInfo = kakaoService.getUserInfo(access_Token);
 
-        session.invalidate();
-        session.setAttribute("kakaoN", userInfo.getK_name());
-        session.setAttribute("kakaoE", userInfo.getK_email());
+        if (userInfo.getK_email() == null || userInfo.getK_nickname() == null || userInfo.getK_username() == null || userInfo.getProfilePictureUrl() == null) {
+            throw new IllegalArgumentException("이메일, 별명, 사용자 이름, 프로필 사진 URL은 null일 수 없습니다.");
+        }
 
-        return JwtTokenProvider.create(User.builder().email(userInfo.getK_email()).nickname(userInfo.getK_name()).build());
+        session.invalidate();
+        session.setAttribute("kakaoN", userInfo.getK_nickname());
+        session.setAttribute("kakaoE", userInfo.getK_email());
+        session.setAttribute("kakaoU", userInfo.getK_username());
+        session.setAttribute("kakaoP", userInfo.getProfilePictureUrl());
+
+        System.out.println("redirect:/login.html");
+
+        return JwtTokenProvider.create(User.builder().email(userInfo.getK_email()).nickname(userInfo.getK_nickname()).build());
     }
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) {

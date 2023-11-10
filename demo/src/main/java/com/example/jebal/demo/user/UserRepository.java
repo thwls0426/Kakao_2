@@ -3,6 +3,7 @@ package com.example.jebal.demo.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
+import com.example.jebal.demo.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
