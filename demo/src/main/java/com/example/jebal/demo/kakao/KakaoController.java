@@ -59,8 +59,6 @@ public class KakaoController {
         session.invalidate();
         session.setAttribute("kakaoN", userInfo.getK_name());
         session.setAttribute("kakaoE", userInfo.getK_email());
-        session.setAttribute("kakaoE", userInfo.getK_email());
-        session.setAttribute("kakaoE", userInfo.getK_email());
 
         return JwtTokenProvider.create(User.builder().email(userInfo.getK_email()).nickname(userInfo.getK_name()).build());
     }
