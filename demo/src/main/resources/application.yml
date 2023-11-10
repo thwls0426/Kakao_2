@@ -7,7 +7,7 @@ security:
     client:
       registration:
         kakao:
-          client-id: e5dd6150538185c4fa9550b60a6f9977
+          client-id: d724c4c3a21fde9dd46123f7eb45872a
           redirect-uri: "http://localhost:8080/katalk/callback"
           client-authentication-method: POST
           authorization-grant-type: authorization_code

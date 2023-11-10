@@ -16,7 +16,7 @@ import java.util.HashMap;
 @Service
 public class KakaoService {
     private static final Logger logger = LoggerFactory.getLogger(KakaoService.class);
-    private static final String CLIENT_ID = "e5dd6150538185c4fa9550b60a6f9977";
+    private static final String CLIENT_ID = "d724c4c3a21fde9dd46123f7eb45872a";
     private static final String REDIRECT_URI = "http://localhost:8080/katalk/callback";
 
     private final KakaoRepository kakaoRepository;
@@ -41,7 +41,7 @@ public class KakaoService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=e5dd6150538185c4fa9550b60a6f9977");
+            sb.append("&client_id=d724c4c3a21fde9dd46123f7eb45872a");
             sb.append("&redirect_uri=http://localhost:8080/katalk/callback");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());

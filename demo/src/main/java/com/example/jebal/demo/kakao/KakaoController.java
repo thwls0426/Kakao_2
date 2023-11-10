@@ -19,7 +19,7 @@ import java.util.Collections;
 @Controller
 public class KakaoController {
 
-    private final KakaoService kakao;
+    private final KakaoService kakaoService;
     private final UserRepository userRepository;
 
     @RequestMapping(value = "/katalk")
@@ -30,8 +30,8 @@ public class KakaoController {
 
     @RequestMapping(value = "/katalk/callback")
     public String login(@RequestParam("code") String code, HttpSession session) {
-        String access_Token = kakao.getAccessToken(code);
-        KakaoDTO userInfo = kakao.getUserInfo(access_Token);
+        String access_Token = kakaoService.getAccessToken(code);
+        KakaoDTO userInfo = kakaoService.getUserInfo(access_Token);
         System.out.println("controller access_token : " + access_Token);
 
         // 카카오 로그인 정보를 User 객체로 변환하고 저장합니다.
@@ -45,17 +45,21 @@ public class KakaoController {
         return "redirect:/success.html";
     }
 
+
+    //토큰만들기
     @Autowired
     private HttpSession session;
 
     @RequestMapping(value="/katalk/login", method= RequestMethod.GET)
     public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
         System.out.println("#########" + code);
-        String access_Token = kakao.getAccessToken(code);
-        KakaoDTO userInfo = kakao.getUserInfo(access_Token);
+        String access_Token = kakaoService.getAccessToken(code);
+        KakaoDTO userInfo = kakaoService.getUserInfo(access_Token);
 
         session.invalidate();
         session.setAttribute("kakaoN", userInfo.getK_name());
+        session.setAttribute("kakaoE", userInfo.getK_email());
+        session.setAttribute("kakaoE", userInfo.getK_email());
         session.setAttribute("kakaoE", userInfo.getK_email());
 
         return JwtTokenProvider.create(User.builder().email(userInfo.getK_email()).nickname(userInfo.getK_name()).build());
@@ -65,7 +69,7 @@ public class KakaoController {
         String access_Token = (String) session.getAttribute("access_Token");
 
         if (access_Token != null && !"".equals(access_Token)) {
-            kakao.Logout(access_Token);
+            kakaoService.Logout(access_Token);
             session.removeAttribute("access_Token");
             session.removeAttribute("userId");
         } else {
@@ -79,7 +83,7 @@ public class KakaoController {
         String access_Token = (String) session.getAttribute("access_Token");
 
         if (access_Token != null && !"".equals(access_Token)) {
-            kakao.unlink(access_Token);
+            kakaoService.unlink(access_Token);
             session.invalidate();
         } else {
             System.out.println("access_Token is null");
