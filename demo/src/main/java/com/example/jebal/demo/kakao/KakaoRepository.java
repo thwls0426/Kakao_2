@@ -5,7 +5,6 @@ import com.example.jebal.demo.user.UserRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @Repository
 public class KakaoRepository {
@@ -20,7 +19,6 @@ public class KakaoRepository {
         User user = new User();
         user.setEmail((String) userInfo.get("email"));
         user.setNickname((String) userInfo.get("nickname"));
-        user.setPassword((String) userInfo.get("password"));
         user.setUsername((String) userInfo.get("username"));
         user.setPhoneNumber((String) userInfo.get("phoneNumber"));
         userRepository.save(user);
@@ -41,11 +39,10 @@ public class KakaoRepository {
             throw new IllegalArgumentException("이메일과 닉네임은 null일 수 없습니다.");
         }
 
-        User foundUser = findUserByEmail(email);
-        if (foundUser == null) {
+        User foundUser = userRepository.findByEmail(email).orElseGet(() -> {
             insertUser(userInfo);
-            foundUser = findUserByEmail(email);
-        }
+            return findUserByEmail(email);
+        });
 
         KakaoDTO kakaoDTO = new KakaoDTO();
         kakaoDTO.setK_nickname(foundUser.getNickname());

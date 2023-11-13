@@ -25,6 +25,15 @@ spring:
   output:
     ansi:
       enabled: always
+
+logging:
+  level:
+    '[com.example.jebal]': DEBUG
+    '[org.hibernate.type]': TRACE
+
+file:
+  path: ./images/
+
 security:
   oauth2:
     client:

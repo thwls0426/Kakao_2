@@ -3,18 +3,18 @@ package com.example.jebal.demo.kakao;
 import org.springframework.web.bind.annotation.GetMapping;
 
 public class successController {
-    @GetMapping("/success")
+    @GetMapping("/login")
     public String showLoginSuccessPage() {
-        return "success"; // success.html 파일을 렌더링
+        return "login"; // login.html 파일을 렌더링
     }
 
-    @GetMapping("/logout-success")
+    @GetMapping("/logout_success")
     public String showLogoutSuccessPage() {
-        return "logout-success"; // logout_success.html 파일을 렌더링
+        return "logout_success"; // logout_success.html 파일을 렌더링
     }
 
-    @GetMapping("/unlink-success")
+    @GetMapping("/unlink_success")
     public String showUnlinkSuccessPage() {
-        return "unlink-success"; // unlink_success.html 파일을 렌더링
+        return "unlink_success"; // unlink_success.html 파일을 렌더링
     }
 }
