@@ -1,18 +1,17 @@
 package com.example.jebal.demo.kakao;
 
-import com.example.jebal.demo.core.security.JwtTokenProvider;
-import com.example.jebal.demo.user.User;
+
 import com.example.jebal.demo.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
+import org.springframework.web.servlet.view.RedirectView;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,80 +21,52 @@ public class KakaoController {
     private final KakaoService kakaoService;
     private final UserRepository userRepository;
 
-    @RequestMapping(value = "/katalk")
-    public String index() {
 
-        return "index";
-    }
+    @GetMapping("/katalk/callback")
+    public RedirectView kakaoLogin(@RequestParam String code, HttpSession session, HttpServletResponse response) throws IOException {
 
-    @RequestMapping(value = "/katalk/callback")
-    public String login(@RequestParam("code") String code, HttpSession session) {
-        String access_Token = kakaoService.getAccessToken(code);
-        KakaoDTO userInfo = kakaoService.getUserInfo(access_Token);
-        System.out.println("controller access_token : " + access_Token);
+        System.out.println("code = " + code);
+        //추가됨: 카카오 토큰 요청
+        KakaoToken kakaoToken = kakaoService.requestToken(code);
+        log.info("kakoToken = {}", kakaoToken);
 
-        // 카카오 로그인 정보를 User 객체로 변환하고 저장합니다.
-        User user = User.builder()
-                .email(userInfo.getK_email())
-                .nickname(userInfo.getK_nickname())
-                .username(userInfo.getK_username())
-                .picture(userInfo.getProfilePictureUrl())
-                .role(Collections.singletonList("ROLE_USER"))
-                .build();
-        userRepository.save(user);
+    //추가됨: 유저정보 요청
+        KakaoDTO kakaoDTO = kakaoService.requestUser(kakaoToken.getAccess_token());
 
-        return "redirect:/login.html";
-    }
+        log.info("user = {}",kakaoDTO);
 
+        session.setAttribute("access_token", kakaoToken.getAccess_token());
 
-    //토큰만들기
-    @Autowired
-    private HttpSession session;
+        log.info("토큰: " + String.valueOf(session.getAttribute("access_token")));
 
-    @RequestMapping(value="/katalk/login", method= RequestMethod.GET)
-    public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
-        System.out.println("#########" + code);
-        String access_Token = kakaoService.getAccessToken(code);
-        KakaoDTO userInfo = kakaoService.getUserInfo(access_Token);
+        kakaoService.login(response);
 
-        if (userInfo.getK_email() == null || userInfo.getK_nickname() == null || userInfo.getK_username() == null || userInfo.getProfilePictureUrl() == null) {
-            throw new IllegalArgumentException("이메일, 별명, 사용자 이름, 프로필 사진 URL은 null일 수 없습니다.");
-        }
-
-        session.invalidate();
-        session.setAttribute("kakaoN", userInfo.getK_nickname());
-        session.setAttribute("kakaoE", userInfo.getK_email());
-        session.setAttribute("kakaoU", userInfo.getK_username());
-        session.setAttribute("kakaoP", userInfo.getProfilePictureUrl());
-
-        System.out.println("redirect:/login.html");
-
-        return JwtTokenProvider.create(User.builder().email(userInfo.getK_email()).nickname(userInfo.getK_nickname()).build());
-    }
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
-        String access_Token = (String) session.getAttribute("access_Token");
-
-        if (access_Token != null && !"".equals(access_Token)) {
-            kakaoService.Logout(access_Token);
-            session.removeAttribute("access_Token");
-            session.removeAttribute("userId");
-        } else {
-            System.out.println("access_Token is null");
-        }
-        return "redirect:/logout_success.html";
-    }
-
-    @RequestMapping(value = "/unlink")
-    public String unlink(HttpSession session) {
-        String access_Token = (String) session.getAttribute("access_Token");
-
-        if (access_Token != null && !"".equals(access_Token)) {
-            kakaoService.unlink(access_Token);
-            session.invalidate();
-        } else {
-            System.out.println("access_Token is null");
-        }
-        return "redirect:/unlink_success.html";
-    }
+        return new RedirectView("/");
+}
+//    @RequestMapping(value = "/logout")
+//    public String logout(HttpSession session) {
+//        String access_Token = (String) session.getAttribute("access_Token");
+//
+//        if (access_Token != null && !"".equals(access_Token)) {
+//            kakaoService.Logout(access_Token);
+//            session.removeAttribute("access_Token");
+//            session.removeAttribute("userId");
+//        } else {
+//            System.out.println("access_Token is null");
+//        }
+//        return "redirect:/logout_success.html";
+//    }
+//
+//    @RequestMapping(value = "/unlink")
+//    public String unlink(HttpSession session) {
+//        String access_Token = (String) session.getAttribute("access_Token");
+//
+//        if (access_Token != null && !"".equals(access_Token)) {
+//            kakaoService.unlink(access_Token);
+//            session.invalidate();
+//        } else {
+//            System.out.println("access_Token is null");
+//        }
+//        return "redirect:/unlink_success.html";
+//    }
 }

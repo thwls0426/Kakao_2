@@ -1,5 +1,6 @@
 package com.example.jebal.demo.core.utils;
 
+import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
@@ -22,16 +23,16 @@ public class SignUpMessageSender {
 
     private static DefaultMessageService messageService = null;
 
-//    @Bean
-//    public void initialize() {
+    @Bean
+    public void initialize() {
 //        // ** 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
 //        /* this.messageService = NurigoApp.INSTANCE.initialize(
 //                "INSERT_API_KEY",               apiKey
 //                "INSERT_API_SECRET_KEY",        apiSecretKey
 //                "https://api.coolsms.co.kr");   domain
 //         */
-//        messageService = NurigoApp.INSTANCE.initialize(API_KEY, APISECRETKEY, DOMAIN);
-//    }
+        messageService = NurigoApp.INSTANCE.initialize(API_KEY, APISECRETKEY, DOMAIN);
+    }
 
     public static void sendMessage(String fromPhoneNumber, String toPhoneNumber, String text) {
         Message message = new Message();

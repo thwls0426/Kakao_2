@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name="Users")
 
@@ -22,50 +19,39 @@ public class User {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column
-    private String nickname;
-
-    @Column
-    private String picture;
-
-
-    @Column(length = 256, nullable = false)
+    @Column(length = 256)
     private String password;
 
     @Column(length = 100, nullable = false)
     private String username;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String phoneNumber;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     @Convert(converter = StringArrayConverter.class)
-    @Builder.Default
-    private List<String> role = new ArrayList<>();
+    private List<String> roles = new ArrayList<>();
+
+    @Column(length = 100)
+    private String provider;
 
     @Builder
-    public User(int id, String email, String password, String username, String phoneNumber, List<String> role, String nickname) {
+    public User(int id, String email, String password, String username, String provider, String phoneNumber, List<String> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
-        this.role = role;
-        this.nickname = nickname;
+        this.provider = provider;
+        this.roles = roles;
     }
 
-    public User update(String name, String picture){
-        this.username = name;
-        this.picture = picture;
-
-        return this;
-    }
 
     public void output(){
         System.out.println(id);
         System.out.println(email);
         System.out.println(password);
         System.out.println(username);
-        System.out.println(role);
+        System.out.println(roles);
     }
 }

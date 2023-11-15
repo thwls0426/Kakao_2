@@ -20,7 +20,7 @@ import java.util.List;
 
 @Slf4j
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager)  {
         super(authenticationManager);
     }
 
@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             List<String> rolesList = stringArrayConverter.convertToEntityAttribute(roles);
 
             // ** 추출한 정보로 유저를 생성.
-            User user = User.builder().id(id).role(rolesList).build();
+            User user = User.builder().id(id).roles(rolesList).build();
             CustomUserDetails customUserDetails = new CustomUserDetails(user);
 
             // ** Spring Security 가 인증 정보를 관리하는데 사용.

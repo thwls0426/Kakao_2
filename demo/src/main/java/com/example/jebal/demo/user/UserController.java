@@ -2,8 +2,10 @@ package com.example.jebal.demo.user;
 
 import com.example.jebal.demo.core.security.JwtTokenProvider;
 import com.example.jebal.demo.core.utils.ApiUtils;
+import com.example.jebal.demo.kakao.KakaoUri;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +15,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final KakaoUri kakaoUri;
 
     /* @Valid = 받아온 폼의 데이터 유효성을 검사하는 역할을 수행.
      *  - @RequestBody, @ModelAttribute 와 함께 사용한다.
@@ -22,12 +25,11 @@ public class UserController {
      * @RequestBody
      * JSON 으로 넘어오는 데이터를 UserRequest.LoginDTO 형태로 변경 해주는 역할.
      */
-    @PostMapping("/join")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinDTO requestDTO, Error error) {
-
-        userService.join(requestDTO);
-
-        return ResponseEntity.ok(ApiUtils.success(null));
+    @GetMapping("/join")
+    public String join(Model model) {
+        model.addAttribute("api", kakaoUri.getAPI_KEY());
+        model.addAttribute("redirect", kakaoUri.getREDIRECT_URI());
+        return "join"; // "join.html" 파일을 렌더링
     }
 
     @PostMapping("/check")

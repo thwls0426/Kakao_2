@@ -13,21 +13,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class UserService {
-    public static OAuth2UserService<OAuth2UserRequest, OAuth2User> KakaoOAuth2UserService;
+
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -42,7 +39,7 @@ public class UserService {
         requestDTO.setPassword(encodedPassword);
 
         try {
-            userRepository.save(requestDTO.toEntity());
+            userRepository.save(requestDTO.toEntity(passwordEncoder));
 
             SignUpMessageSender.sendMessage("01088224115", requestDTO.getPhoneNumber()
                     , "환영합니다. 회원가입이 완료되었습니다.");
@@ -75,16 +72,6 @@ public class UserService {
 
 
     }
-
-//    public void createUserFromKakao(KakaoDTO kakaoUser) {
-//        User user = new User();
-//        user.setEmail(kakaoUser.getEmail());
-//        user.setNickname(kakaoUser.getNickname());
-//        // ... 다른 필드들도 적절히 설정 ...
-//
-//        userRepository.save(user);
-//    }
-
     public void findAll() {
         List<User> all = userRepository.findAll();
         for (User user : all) {
@@ -100,5 +87,23 @@ public class UserService {
         }
     }
 
+    public UserRequest findByEmailAndProvider(String email, String provider){
+        // 동일한 이메일이 있는지 확인.
+        Optional<User> users = userRepository.findByEmailAndProvider(email, provider);
+        if(users.isPresent()) {
+            throw new Exception400("이미 존재하는 이메일 입니다. : " + email);
+        }
+        return null;
+    }
 
 }
+//    public static OAuth2UserService<OAuth2UserRequest, OAuth2User> KakaoOAuth2UserService;
+
+//    public void createUserFromKakao(KakaoDTO kakaoUser) {
+//        User user = new User();
+//        user.setEmail(kakaoUser.getEmail());
+//        user.setNickname(kakaoUser.getNickname());
+//        // ... 다른 필드들도 적절히 설정 ...
+//
+//        userRepository.save(user);
+//    }

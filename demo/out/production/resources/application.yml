@@ -13,6 +13,7 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2-console
   jpa:
     hibernate:
       ddl-auto: create
@@ -34,20 +35,10 @@ logging:
 file:
   path: ./images/
 
-security:
-  oauth2:
-    client:
-      registration:
-        kakao:
-          client-id: d724c4c3a21fde9dd46123f7eb45872a
-          redirect-uri: "http://localhost:8080/katalk/callback"
-          client-authentication-method: POST
-          authorization-grant-type: authorization_code
-          scope: profile_nickname, account_email #동의 항목
-          client-name: Kakao
-      provider:
-        kakao:
-          authorization-uri: https://kauth.kakao.com/oauth/authorize
-          token-uri: https://kauth.kakao.com/oauth/token
-          user-info-uri: https://kapi.kakao.com/v2/user/me
-          user-name-attribute: id
+
+kakao:
+  api:
+    key: "d724c4c3a21fde9dd46123f7eb45872a"
+
+  redirect:
+    uri : "http://localhost:8080/katalk/callback"

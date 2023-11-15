@@ -1,7 +1,9 @@
 package com.example.jebal.demo.user;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -17,9 +19,6 @@ public class UserRequest {
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
 
-        @NotEmpty
-        private String nickname;
-
 
         @NotEmpty
         @Size(min = 8, max = 20, message = "8자 이상 20자 이내로 작성 가능합니다.")
@@ -29,17 +28,32 @@ public class UserRequest {
         @NotEmpty
         private String username;
 
+        private String provider;
+
         @NotEmpty
         @Pattern(regexp = "^[0-9]{10,11}$", message = "휴대폰 번호는 숫자 10~11자리만 가능합니다.")
         private String phoneNumber;
 
+        @Builder
+        public User toEntity(PasswordEncoder passwordEncoder) {
+            return User.builder()
+                    .email(email)
+                    .password(passwordEncoder.encode(password))
+                    .username(username)
+                    .phoneNumber(phoneNumber)
+                    .roles(Collections.singletonList("ROLE_USER"))
+                    .build();
+        }
+
+        @Builder
         public User toEntity() {
             return User.builder()
                     .email(email)
                     .password(password)
                     .username(username)
+                    .provider(provider)
                     .phoneNumber(phoneNumber)
-                    .role(Collections.singletonList("ROLE_USER"))
+                    .roles(Collections.singletonList("ROLE_USER"))
                     .build();
         }
     }

@@ -1,16 +1,19 @@
 package com.example.jebal.demo.kakao;
 
 import lombok.Data;
+import lombok.ToString;
+import org.springframework.stereotype.Component;
 
 @Data
+@ToString
+@Component
 public class KakaoDTO {
-    private long k_id;
-    private String k_username;
-    private String k_email;
-    private String profilePictureUrl;
-    private String k_password;
-    private String k_nickname;
-    private String k_phoneNumber;
+    private Long id;
+    private String email;
+    private String nickname;
+    private String thumbnail_image;
+    private String properties;
+    private String provider;
 
 }
 

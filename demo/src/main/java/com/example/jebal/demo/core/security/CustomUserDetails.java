@@ -19,7 +19,7 @@ public class CustomUserDetails implements UserDetails {
     @Override
     // ** 사용자에게 부여된 권한을 GrantedAuthority 객체의 컬렉션으로 반환.
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.user.getRole().stream()
+        return this.user.getRoles().stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }

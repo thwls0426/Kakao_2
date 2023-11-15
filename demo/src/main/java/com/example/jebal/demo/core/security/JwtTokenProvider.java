@@ -34,7 +34,7 @@ public class JwtTokenProvider {
 
         // ** User의 권한 정보를 String 로 변경
         String roles = stringArrayConverter.convertToDatabaseColumn(
-                user.getRole()
+                user.getRoles()
         );
 
         String jwt = JWT.create()

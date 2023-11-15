@@ -19,12 +19,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-client', version: '2.4.3'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
 
 	runtimeOnly 'com.h2database:h2'
 	compileOnly 'org.projectlombok:lombok'
@@ -39,11 +37,7 @@ dependencies {
 
 
 	// ** nurigo message
-	// ** nurigo -> 좌측 메뉴 -> 아래쪽 SDK 다운로드 -> Java용 SDK -> Github Repo에서 버전 확인
 	implementation 'net.nurigo:sdk:4.3.0'
-
-	implementation 'org.apache.httpcomponents:httpclient:4.3.2'
-	implementation 'com.google.code.gson:gson:2.8.7'
 }
 
 ext {
